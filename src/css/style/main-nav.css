@@ -1,0 +1,35 @@
+.main-nav-item {
+    padding: var(--space-1);
+    border-bottom: 1px solid var(--border-color);
+}
+    
+.main-nav-item:hover {
+    background-color: var(--gray);
+}
+
+.main-nav-item:hover a {
+    color: var(--white);
+}
+
+.main-nav-item:first-child {
+    border-top: 1px solid var(--border-color);
+}
+
+@media (--breakpoint-md) {
+    .main-nav-item:first-child {
+        border-top: none;
+    }
+    .main-nav-item {
+        padding: 0;
+        border: none;
+    }
+    
+    .main-nav-item:hover {
+        background-color: inherit;
+        color: inherit;
+    }
+
+    .main-nav-item:hover a {
+        color: inherit;
+    }
+}

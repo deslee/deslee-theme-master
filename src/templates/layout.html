@@ -1,0 +1,28 @@
+<div class="clearfix flex-grow">
+    
+    <header class="px2 col col-12 md-col-3 center md-left">
+        
+        <img src="{{image}}" class="header-logo" style="" />
+        <h1>{{title}}</h1>
+        
+        <nav>
+            <ul class="list-reset">
+            {{#each nav}}
+                <li class="main-nav-item"><a href="{{href}}" class="block">{{name}}</a></li>
+            {{/each}}
+            </ul>
+        </nav>
+        
+        <p>This is my personal website.</p>
+        <p>I'm a Software Engineer from Dallas. I like blah blah blah and blah blah blah.</p>
+    </header>
+    
+    <main role="main" class="px2 col col-12 md-col-9 lg-col-6" des-template="templates/{{page}}.html">
+    </main>
+    
+    <section class="col col-12 lg-col-3" des-template="templates/sidebar.html"></section>
+</div>
+
+<footer class="gray left-align p2">
+    <section>Desmond Lee © 2015</section>
+</footer>

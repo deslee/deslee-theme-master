@@ -1,0 +1,11 @@
+{{#each blog}}
+    <div class="post border-bottom pb1">
+        <h2><a href="blog.html">{{title}}</a></h2>
+        <time datetime="2014-11-23">{{date}}</time>
+        <ul class="p0 inline">
+            {{#each tags}}
+            <li class="inline"><a class="silver navy bg-darken-1 px1 mr1 rounded" href="">{{this}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+{{/each}}
