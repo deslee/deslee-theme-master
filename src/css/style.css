@@ -14,4 +14,7 @@ pre {
     .btn.md-no-active-box-shadow:active {
         box-shadow: none;
     }
+    .md-no-hover-box-shadow:hover {
+        box-shadow: none;
+    }
 }
