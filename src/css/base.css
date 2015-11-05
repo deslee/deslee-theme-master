@@ -33,15 +33,16 @@
 @import 'basscss-colors';
 @import 'basscss-background-colors';
 
+
 /* Optional Modules (not included in Basscss by default) */
+/*@import 'basscss-btn-sizes';*/
+@import 'basscss-responsive-white-space';
 /*
-@import 'basscss-btn-sizes';
 @import 'basscss-color-forms-dark';
 @import 'basscss-input-range';
 @import 'basscss-progress';
 @import 'basscss-background-images';
 @import 'basscss-media-object';
-@import 'basscss-responsive-white-space';
 @import 'basscss-utility-headings';
 @import 'basscss-ui-utility-groups';
 @import 'basscss-table-object';
@@ -74,6 +75,8 @@ body {
     --heading-font-family: 'Roboto Slab', serif;
     --heading-font-weight: 300;
     --font-family: 'Open Sans', sans-serif;
+    
+    --pre-margin-bottom: 0;
     
     --container-width: 75em;
 }

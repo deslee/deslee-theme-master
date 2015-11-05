@@ -1,12 +1,4 @@
 .header-logo {
     max-width: 9em;
-    border-radius: 50%;
-    display: block;
     margin: var(--space-3) auto 0;
 }
-
-/*@media (--breakpoint-md) {
-    .header-logo {
-        margin: var(--space-3) 0 0;
-    }
-}*/

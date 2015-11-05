@@ -9,6 +9,7 @@
 
 .main-nav-item:hover a {
     color: var(--white);
+    text-decoration: none;
 }
 
 .main-nav-item:first-child {

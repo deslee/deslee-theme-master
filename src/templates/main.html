@@ -1,3 +1,4 @@
+<div>
 {{#each blog}}
     <div class="post border-bottom pb1">
         <h2><a href="blog.html">{{title}}</a></h2>
@@ -7,5 +8,15 @@
             <li class="inline"><a class="silver navy bg-darken-1 px1 mr1 rounded" href="">{{this}}</a></li>
             {{/each}}
         </ul>
+        <p class="mt1">{{preview}}</p>
     </div>
 {{/each}}
+</div>
+
+<div class="clearfix pb1">
+
+    <a href="" class="left btn btn-primary regular">← Newer Posts</a>
+    <a href="" class="right btn btn-primary regular">Older Posts →</a>
+    <div class="overflow-hidden sm-show center">Page 1 of 2</div>
+    
+</div>

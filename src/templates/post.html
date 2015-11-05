@@ -1,1 +1,80 @@
-hello world
+<h1>Getting started with Google Calendar API</h1>
+<time class="mr1" datetime="2014-11-23">2014-11-23</time>
+<ul class="tags p0 inline">
+	<li class="inline" >
+		<a class="tag silver navy bg-darken-1 px1 mr1 rounded" href="/tags/apis">apis</a>
+	</li>
+	<li class="inline" ><a class="tag silver navy bg-darken-1 px1 mr1 rounded" href="/tags/dev" >dev</a></li>
+</ul>
+<div class="mt1" >
+	<p>I have begun experimenting with <a href="https://developers.google.com/google-apps/app-apis">Google Apps Application APIs</a>, with the intention of building a Javascript client-side application to interface with Google Calendar. I'm going to demonstrate what I've learned with a scenario flow for accessing the Google Calendar REST API.</p>
+	<h1 id="what-i-ve-learned">What I've learned</h1>
+	<p>Google APIs use the OAuth 2.0 protocol for authentication and authorization. In this scenario, <em>Authentication</em> is the process of verifying the identity of a user, and <em>Authorization</em> is the process of determing which actions are allowed, usually based on the identity of the user. They are usually both referred to as <em>auth</em>, because both are requirements that are central to the security of a system. To understand more about the OAuth2 protocol, refer to <a href="http://aaronparecki.com/articles/2012/07/29/1/oauth2-simplified">this</a> guide.</p>
+	<h1 id="steps">Steps</h1>
+	<p>In this scenario, we will use Google APIs OAuth2 protocol to request an authorization token, which will allow us to access the <a href="https://developers.google.com/google-apps/calendar/firstapp">Google Calendar API</a></p>
+	<h2 id="setting-up-the-service">Setting up the service</h2>
+	<p>We need to set up the service (google) so it will recognize the client.</p>
+	<ol>
+		<li>First, go to the <a href="https://console.developers.google.com/project">Google Developers Console</a> and set up a new Project.</li>
+		<li>Click on the Project to select it,</li>
+		<li>Afterwards, click on the <strong>Credentials</strong> item in the menu, under the <strong>APIs &amp; Auth</strong> section of the menu.</li>
+		<li>Click the <strong>Create new Client ID</strong> button.</li>
+		<li>Select <strong>Installed Application</strong></li>
+	</ol>
+	<p>On the page, you will see a section titled <strong>Client ID for native application</strong>. Within the section, there should be 3 items:</p>
+	<ol>
+		<li>Client ID</li>
+		<li>Client Secret</li>
+		<li>Redirect URIs</li>
+	</ol>
+	<p>Next, click on <strong>Consent screen</strong> under the <strong>APIs &amp; Auth</strong> section of the menu, and create your consent screen. Be sure to choose a support email address. This screen is what the user will see when he or she authenticates with the Google OAuth2 protocol.</p>
+	<h2 id="getting-an-authorization-code">Getting an authorization code</h2>
+	<p>The authorization code is used to request a Google APIs Authorization token from Google's OAuth2 protocol.</p>
+	<p>Make a GET request to this URI: <code>https://accounts.google.com/o/oauth2/auth</code></p>
+	<p>Provide these query parameters:</p>
+	<ol>
+		<li>
+			<em>response_type</em>=code
+			<ul>
+				<li>This is to tell the service that we want an authorization code</li>
+			</ul>
+		</li>
+		<li><em>client_id</em>=[Your Client ID]</li>
+		<li>
+			<em>redirect_uri</em>=urn:ietf:wg:oauth:2.0:oob
+			<ul>
+				<li>I'll explain this later</li>
+			</ul>
+		</li>
+		<li><em>scope</em>=<a href="https://www.googleapis.com/auth/calendar">https://www.googleapis.com/auth/calendar</a></li>
+	</ol>
+	<p>Your request should look like this:</p>
+	<pre><code>https://accounts.google.com/o/oauth2/auth?response_type=code&amp;client_id=[Your CLIENTID]&amp;redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar
+	</code></pre>
+	<p>This will redirect to a page where the user can log into Google and grant access to your app.</p>
+	<p>After you grant access to your app, it will redirect you to a special page with an authorization code. This is why we chose <code>urn:ietf:wg:oauth:2.0:oob</code> as the <code>redirect_uri</code>. With this code, the application can request an <em>Authorization Token</em> from Google APis.</p>
+	<p>Be sure to copy the authorization code, we will use this in the next step.</p>
+	<h2 id="getting-an-authorization-token">Getting an authorization token</h2>
+	<p>Make a POST request to this URI: <code>https://accounts.google.com/o/oauth2/token</code></p>
+	<p>In the header, set <code>Content-Type</code> to <code>application/x-www-form-urlencoded</code>.
+		In the request body, set these parameters:
+	</p>
+	<ol>
+		<li><em>code</em>=[Authorization code from pervious step]</li>
+		<li><em>client_id</em>=[Your Client ID]</li>
+		<li><em>grant_type</em>=authorization_code</li>
+		<li><em>secret</em>=[Your Client Secret]</li>
+		<li><em>redirect_uri</em>urn:ietf:wg:oauth:2.0:oob</li>
+	</ol>
+	<p>After you make this request, you will get a JSON response. In the body data, there will be a property called <code>access_token</code>. This is the token we will use to access the Google Calendar API.</p>
+	<h2 id="making-an-api-request-">Making an API request.</h2>
+	<p>Make a GET request to this URI:
+		<code>https://www.googleapis.com/calendar/v3/users/me/calendarList</code>
+	</p>
+	<p>In the header, set <code>Authorization</code> to <code>Bearer [Your Token]</code></p>
+	<p>After you make this request, you will get a JSON response containing the user's calendar list on Google Calendar. To understand this response, consult Google's <a href="https://developers.google.com/google-apps/calendar/v3/reference/calendarList#resource">Resource Representation for CalendarList</a>.</p>
+	<p>For general API documentation, see <a href="https://developers.google.com/google-apps/calendar/v3/reference/">this reference</a>.</p>
+	<h2 id="play-with-the-api-explorer">Play with the API explorer</h2>
+	<p>Visit the <a href="https://developers.google.com/apis-explorer/#s/calendar/v3/">Calendar API explorer</a> to explore the API without needing to write any code.  </p>
+</div>
+</div>
